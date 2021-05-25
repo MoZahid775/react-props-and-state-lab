@@ -15,7 +15,32 @@ class App extends React.Component {
     }
   }
 
+  
+
+
+//This is a call back that fetches all the pets
+  onFindPetsClick =() => {
+  
+    fetch('/api/pets')
+  .then((r) => r.json())
+  .then((petsArray) => console.log(petsArray));
+
+    
+  }
+
+
+ //this is a callback that changes the state of type: with a value
+  onChangeType = (value) => {
+    
+   this.setState({
+      filters: {...this.state.filters, type: value}
+
+   })
+  }
+
+
   render() {
+    console.log(this.state.filters)
     return (
       <div className="ui container">
         <header>
@@ -24,7 +49,7 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters onChangeType={this.onChangeType} onFindPetsClick={this.onFindPetsClick()}  />
             </div>
             <div className="twelve wide column">
               <PetBrowser />
